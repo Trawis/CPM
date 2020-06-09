@@ -7,14 +7,13 @@ using CPM.Service.Mapping;
 using CPM.WebApi.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CPM.WebApi
 {
-	public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -33,6 +32,7 @@ namespace CPM.WebApi
                        .AllowAnyHeader();
             }));
 
+            services.AddControllers();
             services.AddDbContext<CPMContext>(options => { options.UseSqlite(Configuration.GetConnectionString("CPMConnectionString")); });
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -48,16 +48,12 @@ namespace CPM.WebApi
             services.AddAutoMapper(typeof(CarProfile));
             services.AddAutoMapper(typeof(EmployeeProfile));
             services.AddAutoMapper(typeof(TravelPlanProfile));
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("AllowAll");
-
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -67,8 +63,10 @@ namespace CPM.WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
+            app.UseRouting();
             app.UseMiddleware<ExceptionMiddleware>();
-            app.UseMvc();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

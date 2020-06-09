@@ -1,0 +1,7 @@
+.navbar-nav {
+    display: contents !important;
+}
+
+.nav-item {
+    cursor: pointer;
+}

@@ -7,7 +7,7 @@
 
 * Globally installed Node.js (https://nodejs.org)
 
-* Globally installed .NET Core 2.2 (https://dotnet.microsoft.com/download/visual-studio-sdks)
+* Globally installed .NET Core 3.1 (https://dotnet.microsoft.com/download/visual-studio-sdks)
 
 ### 2. Installation
 
