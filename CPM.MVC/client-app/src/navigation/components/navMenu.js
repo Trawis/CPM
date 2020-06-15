@@ -14,7 +14,7 @@ export function NavMenu() {
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
-                <Nav justify="true">
+                <Nav justify>
                     <LinkContainer to='/' exact>
                         <NavItem>
                             <FontAwesomeIcon icon={faHome} /> Home

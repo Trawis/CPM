@@ -1,11 +1,10 @@
 ﻿using CPM.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CPM.Repository
 {
-	public class CPMContext : DbContext
+    public class CPMContext : DbContext
     {
         public DbSet<Car> Car { get; set; }
         public DbSet<Employee> Employee { get; set; }
@@ -34,7 +33,7 @@ namespace CPM.Repository
 
             foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
             {
-                entityType.Relational().TableName = entityType.DisplayName();
+                entityType.SetTableName(entityType.DisplayName());
             }
         }
     }
