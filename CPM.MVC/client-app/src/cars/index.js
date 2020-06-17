@@ -1,3 +1,3 @@
 export * from './components/carsList';
 export * from './components/editModal';
-export * from './hooks';
+export * from './components/addModal';

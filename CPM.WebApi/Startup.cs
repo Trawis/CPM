@@ -32,7 +32,7 @@ namespace CPM.WebApi
                        .AllowAnyHeader();
             }));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<CPMContext>(options => { options.UseSqlite(Configuration.GetConnectionString("CPMConnectionString")); });
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();

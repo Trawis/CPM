@@ -7,7 +7,7 @@ export function Home() {
             <h1>Welcome to Carpool Management System</h1>
             <p>If you see this page then you succesfully run this application built with:</p>
             <ul>
-                <li><a href='https://get.asp.net/'>ASP.NET Core (2.2)</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
+                <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
                 <li><a href='https://www.sqlite.org/'>SQLite</a> for database</li>
                 <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
                 <li><a href='https://react-select.com/'>React Select</a> for select input</li>

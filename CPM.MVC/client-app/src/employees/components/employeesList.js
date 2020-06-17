@@ -6,9 +6,9 @@ import { API } from '../../core';
 import { ConfirmationModal, useModal } from '../../shared';
 import { AddModal, EditModal } from '../';
 
-export function Cars() {
-    const [cars, setCars] = useState([]);
-    const [car, setCar] = useState({});
+export function Employees() {
+    const [employees, setEmployees] = useState([]);
+    const [employee, setEmployee] = useState({});
     const { isShowing: isAddShowing, toggleModal: toggleAddModal } = useModal();
     const { isShowing: isEditShowing, toggleModal: toggleEditModal } = useModal();
     const { isShowing: isConfirmationShowing, toggleModal: toggleConfirmationModal } = useModal();
@@ -18,20 +18,20 @@ export function Cars() {
     }, []);
 
     const getAll = async () => {
-        const result = await API.car.getAll();
-        setCars(result);
+        const result = await API.employee.getAll();
+        setEmployees(result);
     };
 
     const remove = async () => {
         try {
-            await API.car.delete(car.carId).then(getAll).then(toggleConfirmationModal);
+            await API.employee.delete(employee.employeeId).then(getAll).then(toggleConfirmationModal);
         } catch (e) {
 
         }
     };
 
     const handleAction = (i, action) => () => {
-        setCar(cars[i]);
+        setEmployee(employees[i]);
         switch (action) {
             case 1:
                 toggleEditModal();
@@ -47,30 +47,24 @@ export function Cars() {
 
     return (
         <Col>
-            <h1>Cars</h1>
-            <p>Add, edit or remove Car</p>
-            <p><Button variant="primary" onClick={handleAction()}><FontAwesomeIcon icon={faPlus} /> Add new car</Button></p>
+            <h1>Employees</h1>
+            <p>Add, edit or remove Employee</p>
+            <p><Button variant="primary" onClick={handleAction()}><FontAwesomeIcon icon={faPlus} /> Add new employee</Button></p>
             <Table striped bordered responsive size="sm">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Type</th>
-                        <th>Color</th>
-                        <th>Plates</th>
-                        <th>Number of Seats</th>
+                        <th>Is Driver</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {!cars && "Loading..."}
-                    {cars && cars.map((car, i) => 
-                        <tr key={car.carId}>
-                            <td width="20%">{car.name}</td>
-                            <td width="20%">{car.type}</td>
-                            <td>{car.color}</td>
-                            <td>{car.plates}</td>
-                            <td>{car.seatsNumber}</td>
+                    {!employees && "Loading..."}
+                    {employees && employees.map((employee, i) =>
+                        <tr key={employee.employeeId}>
+                            <td width="75%">{employee.name}</td>
+                            <td>{employee.isDriver ? "Yes" : "No"}</td>
                             <td align="center" width="8%"><Button variant="info" size="sm" onClick={handleAction(i, 1)}><FontAwesomeIcon icon={faEdit} /> Edit</Button></td>
                             <td align="center" width="8%"><Button variant="danger" size="sm" onClick={handleAction(i, 2)}><FontAwesomeIcon icon={faTrash} /> Delete</Button></td>
                         </tr>
@@ -78,7 +72,7 @@ export function Cars() {
                 </tbody>
             </Table>
             <AddModal isShowing={isAddShowing} hide={toggleAddModal} getAll={getAll} />
-            <EditModal isShowing={isEditShowing} hide={toggleEditModal} car={car} getAll={getAll} />
+            <EditModal isShowing={isEditShowing} hide={toggleEditModal} employee={employee} getAll={getAll} />
             <ConfirmationModal isShowing={isConfirmationShowing} hide={toggleConfirmationModal} confirm={remove} />
         </Col>
     );

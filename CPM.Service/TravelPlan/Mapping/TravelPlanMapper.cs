@@ -30,7 +30,7 @@ namespace CPM.Service.Mapping
 
 		public static TravelPlan MapToModel(this TravelPlanDTO dto, TravelPlan model, IMapper mapper)
 		{
-			return mapper.Map<TravelPlanDTO, TravelPlan>(dto, model);
+			return mapper.Map(dto, model);
 		}
 
 		public static IEnumerable<TravelPlan> MapToListModel(this List<TravelPlanDTO> dto, IMapper mapper)

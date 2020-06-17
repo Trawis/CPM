@@ -11,7 +11,7 @@ namespace CPM.Repository
         public DbSet<TravelPlan> TravelPlan { get; set; }
         public DbSet<TravelPlanEmployee> TravelPlanEmployee { get; set; }
 
-        public CPMContext(DbContextOptions<CPMContext> options) : base (options)
+        public CPMContext(DbContextOptions<CPMContext> options) : base(options)
         {
 
         }

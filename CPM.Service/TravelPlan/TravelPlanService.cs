@@ -85,7 +85,7 @@ namespace CPM.Service
 
 			if (isCarInUsage)
 			{
-				errorMessages.Add("Choosed car is not available in that period");
+				errorMessages.Add("Chosen car is not available in that period");
 				throw new ValidationException(ExceptionCodes.CarNotAvailable, errorMessages);
 			}
 			else if (!createdOrUpdatedTravelPlan.TravelPlanEmployees.Any(e => e.Employee.IsDriver))
@@ -104,7 +104,7 @@ namespace CPM.Service
 						employeeTravelPlan.TravelPlan.EndDate >= createdOrUpdatedTravelPlan.StartDate &&
 						employeeTravelPlan.TravelPlan.StartDate <= createdOrUpdatedTravelPlan.EndDate)
 					{
-						errorMessages.Add($"Employee {travelPlanEmployee.Employee.Name} already has travel plan in a choosed period");
+						errorMessages.Add($"Employee {travelPlanEmployee.Employee.Name} already has travel plan in a chosen period");
 					}
 				}
 			}

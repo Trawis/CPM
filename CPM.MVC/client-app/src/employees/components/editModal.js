@@ -2,28 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
-import { Textbox } from '../../shared';
+import { Textbox, Checkbox } from '../../shared';
 import { API } from '../../core';
 
-export const EditModal = ({ isShowing, hide, car, getAll }) => {
-    const [carState, setCarState] = useState(car);
+export const EditModal = ({ isShowing, hide, employee, getAll }) => {
+    const [employeeState, setEmployeeState] = useState(employee);
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        if (!car) {
+        if (!employee) {
             return;
         }
-        setCarState(car);
-    }, [car]);
+        setEmployeeState(employee);
+    }, [employee]);
 
     const handleChange = (e) => {
         let target = e.target;
-        setCarState({ ...carState, [target.name]: target.value });
+        setEmployeeState({ ...employeeState, [target.name]: target.type !== 'checkbox' ? target.value : target.checked });
     };
 
-    const updateCar = async () => {
+    const updateEmployee = async () => {
         try {
-            await API.car.update(carState).then(getAll).then(hide);
+            await API.employee.update(employeeState).then(getAll).then(hide);
         }
         catch (e) {
             if (e.errors) {
@@ -39,7 +39,7 @@ export const EditModal = ({ isShowing, hide, car, getAll }) => {
         <Modal size="lg" show={isShowing} onHide={hide} backdrop="static" centered>
             <Modal.Header className="modal-header" closeButton>
                 <Modal.Title>
-                    Edit car
+                    Edit employee
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="modal-body">
@@ -59,46 +59,18 @@ export const EditModal = ({ isShowing, hide, car, getAll }) => {
                                 id="nameId"
                                 name="name"
                                 label="Name"
-                                value={carState.name}
-                                onChange={handleChange}
-                            />
-                        </Col>
-                        <Col md={6}>
-                            <Textbox
-                                id="typeId"
-                                name="type"
-                                label="Type"
-                                value={carState.type}
+                                value={employeeState.name}
                                 onChange={handleChange}
                             />
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={4}>
-                            <Textbox
-                                id="colorId"
-                                name="color"
-                                label="Color"
-                                value={carState.color}
-                                onChange={handleChange}
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Textbox
-                                id="platesId"
-                                name="plates"
-                                label="Plates"
-                                value={carState.plates}
-                                onChange={handleChange}
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Textbox
-                                id="seatsNumberId"
-                                name="seatsNumber"
-                                type="number"
-                                label="Seats Number"
-                                value={carState.seatsNumber}
+                        <Col md={6}>
+                            <Checkbox
+                                id="isDriverId"
+                                name="isDriver"
+                                label="Is Driver"
+                                checked={employeeState.isDriver}
                                 onChange={handleChange}
                             />
                         </Col>
@@ -106,7 +78,7 @@ export const EditModal = ({ isShowing, hide, car, getAll }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer className="modal-footer d-inline">
-                <Button variant="primary" className="pull-left" onClick={updateCar}><FontAwesomeIcon icon={faSave} /> Save</Button>
+                <Button variant="primary" className="pull-left" onClick={updateEmployee}><FontAwesomeIcon icon={faSave} /> Save</Button>
                 <Button variant="default" className="pull-right" onClick={hide}>Cancel</Button>
             </Modal.Footer>
         </Modal>

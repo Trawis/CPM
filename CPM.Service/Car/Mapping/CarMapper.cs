@@ -30,7 +30,7 @@ namespace CPM.Service.Mapping
 
         public static Car MapToModel(this CarDTO dto, Car model, IMapper mapper)
         {
-            return mapper.Map<CarDTO, Car>(dto, model);
+            return mapper.Map(dto, model);
         }
 
         public static IEnumerable<Car> MapToListModel(this List<CarDTO> dto, IMapper mapper)

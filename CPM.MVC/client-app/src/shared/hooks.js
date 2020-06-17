@@ -3,13 +3,13 @@ import { useState } from 'react';
 export const useModal = () => {
     const [isShowing, setIsShowing] = useState(false);
 
-    function toggle() {
+    function toggleModal() {
         setIsShowing(!isShowing);
     }
 
     return {
         isShowing,
-        toggle
+        toggleModal
     }
 };
 
@@ -24,5 +24,5 @@ export const useFormInput = (initialValue) => {
     return {
         value,
         onChange: handleChange
-    };
+    }
 };

@@ -30,21 +30,21 @@ namespace CPM.Model
                 errorMessages.Add("End location is a required field");
             }
 
-            if (StartDate == default(DateTime))
+            if (StartDate == default)
             {
                 errorMessages.Add("Start date is a required field");
             }
 
-            if (EndDate == default(DateTime))
+            if (EndDate == default)
             {
                 errorMessages.Add("End date is a required field");
             }
 
-            if (StartDate != default(DateTime) && StartDate < DateTime.Now)
+            if (StartDate != default && StartDate < DateTime.Now)
             {
                 errorMessages.Add("Start date can't be in the past");
             }
-            else if (EndDate != default(DateTime) && EndDate < DateTime.Now)
+            else if (EndDate != default && EndDate < DateTime.Now)
             {
                 errorMessages.Add("End date can't be in the past");
             }
@@ -52,7 +52,7 @@ namespace CPM.Model
             {
                 errorMessages.Add("Start date can't be greater than end date");
             }
-            else if (StartDate != default(DateTime) && EndDate != default(DateTime) && StartDate == EndDate)
+            else if (StartDate != default && EndDate != default && StartDate == EndDate)
             {
                 errorMessages.Add("Dates can't be the same");
             }

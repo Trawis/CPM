@@ -1,31 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { Textbox } from '../../shared';
 import { API } from '../../core';
 
-export const EditModal = ({ isShowing, hide, car, getAll }) => {
-    const [carState, setCarState] = useState(car);
+export const AddModal = ({ isShowing, hide, getAll }) => {
+    const [carState, setCarState] = useState({});
     const [errors, setErrors] = useState([]);
-
-    useEffect(() => {
-        if (!car) {
-            return;
-        }
-        setCarState(car);
-    }, [car]);
 
     const handleChange = (e) => {
         let target = e.target;
         setCarState({ ...carState, [target.name]: target.value });
     };
 
-    const updateCar = async () => {
+    const addCar = async () => {
         try {
-            await API.car.update(carState).then(getAll).then(hide);
-        }
-        catch (e) {
+            await API.car.create(carState).then(getAll).then(hide);
+        } catch (e) {
             if (e.errors) {
                 setErrors(e.errors.map(error => error.message));
             } else {
@@ -35,11 +27,10 @@ export const EditModal = ({ isShowing, hide, car, getAll }) => {
     };
 
     return (
-        isShowing &&
         <Modal size="lg" show={isShowing} onHide={hide} backdrop="static" centered>
             <Modal.Header className="modal-header" closeButton>
                 <Modal.Title>
-                    Edit car
+                    Add new car
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="modal-body">
@@ -106,9 +97,9 @@ export const EditModal = ({ isShowing, hide, car, getAll }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer className="modal-footer d-inline">
-                <Button variant="primary" className="pull-left" onClick={updateCar}><FontAwesomeIcon icon={faSave} /> Save</Button>
+                <Button variant="primary" className="pull-left" onClick={addCar}><FontAwesomeIcon icon={faSave} /> Save</Button>
                 <Button variant="default" className="pull-right" onClick={hide}>Cancel</Button>
             </Modal.Footer>
         </Modal>
     );
-};
+}

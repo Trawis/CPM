@@ -5,7 +5,7 @@ using CPM.Service.DTO;
 
 namespace CPM.Service.Mapping
 {
-	public class TravelPlanProfile : Profile
+    public class TravelPlanProfile : Profile
     {
         public TravelPlanProfile()
         {
