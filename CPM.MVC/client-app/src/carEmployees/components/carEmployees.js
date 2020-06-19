@@ -55,8 +55,8 @@ export function CarEmployees() {
                     </tr>
                 </thead>
                 <tbody>
-                    {state.carEmployees && state.carEmployees.map(carEmployee =>
-                        <tr key={carEmployee.car.carId}>
+                    {state.carEmployees && state.carEmployees.map((carEmployee, i) =>
+                        <tr key={i}>
                             <td>{carEmployee.car.name}</td>
                             <td>{carEmployee.car.type}</td>
                             <td>{carEmployee.car.color}</td>
@@ -65,8 +65,8 @@ export function CarEmployees() {
                             <td>
                                 <Table striped bordered responsive size="sm">
                                     <tbody>
-                                        {carEmployee.employees.map(employee =>
-                                            <tr key={employee.employeeId}>
+                                        {carEmployee.employees.map((employee, j) =>
+                                            <tr key={j}>
                                                 <td>{employee.name}{employee.isDriver && <i>{" (Driver)"}</i>}</td>
                                             </tr>
                                         )}

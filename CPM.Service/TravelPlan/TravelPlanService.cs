@@ -52,36 +52,14 @@ namespace CPM.Service
 		public void AddOrUpdateTravelPlan(TravelPlanDTO travelPlan)
 		{
 			var isUpdate = travelPlan.TravelPlanId > 0;
-			var isCarInUsage = false;
 			var errorMessages = new List<string>();
 
-			TravelPlan createdOrUpdatedTravelPlan = null;
-
-			if (isUpdate)
-			{
-				var travelPlanDb = _travelPlanRepository.FindById(travelPlan.TravelPlanId.Value);
-
-				createdOrUpdatedTravelPlan = travelPlan.MapToModel(travelPlanDb, _mapper);
-
-				if (travelPlanDb.CarId != createdOrUpdatedTravelPlan.CarId ||
-					travelPlanDb.StartDate != createdOrUpdatedTravelPlan.StartDate ||
-					travelPlanDb.EndDate != createdOrUpdatedTravelPlan.EndDate)
-				{
-					isCarInUsage = _travelPlanRepository.IsCarInUsage(createdOrUpdatedTravelPlan.StartDate,
-																	  createdOrUpdatedTravelPlan.EndDate,
-																	  createdOrUpdatedTravelPlan.CarId);
-				}
-			}
-			else
-			{
-				createdOrUpdatedTravelPlan = travelPlan.MapToModel(_mapper);
-
-				isCarInUsage = _travelPlanRepository.IsCarInUsage(createdOrUpdatedTravelPlan.StartDate,
+			var createdOrUpdatedTravelPlan = travelPlan.MapToModel(_mapper);
+			createdOrUpdatedTravelPlan.Validate();
+		
+			var isCarInUsage = _travelPlanRepository.IsCarInUsage(createdOrUpdatedTravelPlan.StartDate,
 																  createdOrUpdatedTravelPlan.EndDate,
 																  createdOrUpdatedTravelPlan.CarId);
-			}
-
-			createdOrUpdatedTravelPlan.Validate();
 
 			if (isCarInUsage)
 			{

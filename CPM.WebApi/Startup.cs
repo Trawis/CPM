@@ -35,15 +35,15 @@ namespace CPM.WebApi
             services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<CPMContext>(options => { options.UseSqlite(Configuration.GetConnectionString("CPMConnectionString")); });
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<ICarRepository, CarRepository>();
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
-            services.AddTransient<ITravelPlanRepository, TravelPlanRepository>();
-            services.AddTransient<ITravelPlanEmployeeRepository, TravelPlanEmployeeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ITravelPlanRepository, TravelPlanRepository>();
+            services.AddScoped<ITravelPlanEmployeeRepository, TravelPlanEmployeeRepository>();
 
-            services.AddTransient<ICarService, CarService>();
-            services.AddTransient<IEmployeeService, EmployeeService>();
-            services.AddTransient<ITravelPlanService, TravelPlanService>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ITravelPlanService, TravelPlanService>();
 
             services.AddAutoMapper(typeof(CarProfile));
             services.AddAutoMapper(typeof(EmployeeProfile));

@@ -30,10 +30,15 @@ namespace CPM.Repository
 
         public override void Update(TravelPlan entity)
         {
+            entity.Car = null;
+
             foreach (var travelPlanEmployee in entity.TravelPlanEmployees)
             {
                 travelPlanEmployee.Employee = null;
             }
+
+            var entry = _context.TravelPlan.First(e => e.TravelPlanId == entity.TravelPlanId);
+            _context.Entry(entry).State = EntityState.Detached;
 
             base.Update(entity);
         }
